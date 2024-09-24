@@ -6,10 +6,14 @@ from home.models import *
 from home.serializers import *
 from rest_framework import viewsets
 
-def home(request):
-
-    return render(request,"home/home.html")
 # Create your views here.
+
+
+def home(request):
+    return render(request,'home/home.html')
 
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
+    serializer_class = GameSerializer
+    pass
+
