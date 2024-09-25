@@ -12,6 +12,15 @@ from rest_framework import mixins, viewsets
 def home(request):
     return render(request, "home/home.html")
 
+
+def login(request):
+    return render(request, "home/login.html")
+
+
+def signup(request):
+    return render(request, "home/signup.html")
+
+
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
