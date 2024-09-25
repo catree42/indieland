@@ -27,7 +27,7 @@ class PublisherGame(models.Model):
     review_score = models.DecimalField(null=True, max_digits=3, decimal_places=1)
 
 class GameComment(models.Model):
-    publisher_game = models.Model(PublisherGame, on_delete=models.CASCADE, related_name='pg_comment')
+    publisher_game = models.ForeignKey(PublisherGame, on_delete=models.CASCADE, related_name='pg_comment')
     datetime = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=400)
     
