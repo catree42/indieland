@@ -10,20 +10,9 @@ from rest_framework import mixins, viewsets
 
 
 def home(request):
-    return render(request,'home/home.html')
-
-<<<<<<< HEAD
-def index(request):
-    return render(request, 'index/index.html')
+    return render(request, "home/home.html")
 
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     pass
-=======
-class GameViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Game.objects.all().prefetch_related('publisher_game')
-    serializer = PublichserGameSerializer(queryset, many=True)
-        
->>>>>>> 84273a8a1be5ccb6a034925fb41b83bb66a74574
-
