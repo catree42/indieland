@@ -22,12 +22,17 @@ class Game(models.Model):
     )
 
 class PublisherGame(models.Model):
-    Publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='publisher_game')
-    Game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='publisher_game')
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='publisher_game')
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='publisher_game')
     price = models.DecimalField(default=0, decimal_places=2, max_digits=7)
     reviews_num = models.IntegerField(default=0)
     review = models.CharField(max_length=20)
     review_score = models.DecimalField(null=True, max_digits=3, decimal_places=1)
+
+class GameComment(models.Model):
+    publisher_game = models.Model(PublisherGame, on_delete=models.CASCADE, related_name='pg_comment')
+    datetime = models.DateTimeField(auto_now=True)
+    content = models.TextField(max_length=400)
     
 
 
