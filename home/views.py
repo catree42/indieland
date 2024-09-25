@@ -12,6 +12,9 @@ from rest_framework import viewsets
 def home(request):
     return render(request,'home/home.html')
 
+def index(request):
+    return render(request, 'index/index.html')
+
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
