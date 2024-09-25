@@ -1,3 +1,3 @@
 # indieland
 
-![image](https://github.com/user-attachments/assets/bdbe41a3-aa32-43a3-b171-eb6ab4a4e0cd)
+![image](https://github.com/user-attachments/assets/f28b4d44-78c4-4012-8c87-c9823f420c91)
