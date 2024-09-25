@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -7,6 +8,7 @@ from home.serializers import *
 from rest_framework import mixins, viewsets
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+
 
 # Create your views here.
 
@@ -46,6 +48,11 @@ def signup_view(request):
                           {"errors": serializer.errors})
 
     return render(request, "home/signup.html")
+
+
+def detail(request, pk):
+    context =  get_object_or_404(Game, id = pk)
+    return render(request, "home/<int:pk>.html", context)
 
 
 class GameViewSet(viewsets.ReadOnlyModelViewSet):
