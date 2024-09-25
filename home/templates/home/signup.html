@@ -10,8 +10,40 @@
   </head>
 
   <body>
-    <div class="container">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{% url 'home' %}">Your Game Site</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 50px;">
       <h2>Sign Up</h2>
+
+      <!-- Display validation errors -->
+      {% if errors %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for field, error_messages in errors.items %}
+              <li>{{ field }}:
+                {{ error_messages.0 }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
       <form action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -23,8 +55,13 @@
           <input type="email" id="email" name="email" class="form-control" required="required">
         </div>
         <div class="form-group">
-          <label for="password1">Password:</label>
-          <input type="password" id="password1" name="password1" class="form-control" required="required">
+          <label for="nickname">Nickname:</label>
+          <input type="nickname" id="nickname" name="nickname" class="form-control" required="required">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <!-- Changed from password1 to password -->
+          <input type="password" id="password" name="password" class="form-control" required="required">
         </div>
         <div class="form-group">
           <label for="password2">Confirm Password:</label>
