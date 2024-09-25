@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 
 
@@ -19,38 +19,54 @@ class Game(models.Model):
 
 
 class PublisherGame(models.Model):
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='publisher_game')
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='publisher_game')
+    publisher = models.ForeignKey(Publisher,
+                                  on_delete=models.CASCADE,
+                                  related_name="publisher_game")
+    game = models.ForeignKey(Game,
+                             on_delete=models.CASCADE,
+                             related_name="publisher_game")
     price = models.DecimalField(default=0, decimal_places=2, max_digits=7)
     reviews_num = models.IntegerField(default=0)
     review = models.CharField(max_length=20)
-    review_score = models.DecimalField(null=True, max_digits=3, decimal_places=1)
+    review_score = models.DecimalField(null=True,
+                                       max_digits=3,
+                                       decimal_places=1)
+
 
 class GameComment(models.Model):
-    publisher_game = models.ForeignKey(PublisherGame, on_delete=models.CASCADE, related_name='pg_comment')
+    publisher_game = models.ForeignKey(PublisherGame,
+                                       on_delete=models.CASCADE,
+                                       related_name="pg_comment")
     datetime = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=400)
-    
 
 
 class User(AbstractUser):
-    login_id = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
+    username = models.CharField(max_length=30, unique=True)
+    password = models.CharField(
+        max_length=128, default=make_password(
+            "default_password"))  # Explicitly included, matching AbstractUser
+    email = models.EmailField(max_length=254, unique=True)
     nickname = models.CharField(max_length=30)
     played = models.ManyToManyField(
-        Game,
+        "Game",
         related_name="played_user",
-        null=True,
-        # through="UserGame",
-        # through_fields=("user","game")
+        blank=True,
     )
     likes = models.ManyToManyField(
-        Game,
+        "Game",
         related_name="likes_user",
-        null=True,
-        # through="Likes",
-        # through_fields=("user","game")
+        blank=True,
     )
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email", "nickname"]
+
+    class Meta:
+        db_table = "auth_user"  # Use the same table name as the default User model
+
+    def __str__(self):
+        return self.username
 
 
 class Comment(models.Model):
