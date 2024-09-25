@@ -19,8 +19,8 @@ class Game(models.Model):
 
 
 class PublisherGame(models.Model):
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='publisher_game')
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='publisher_game')
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='publisher_game', null=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='publisher_game', null=True)
     price = models.DecimalField(default=0, decimal_places=2, max_digits=7)
     reviews_num = models.IntegerField(default=0)
     review = models.CharField(max_length=20)
@@ -51,6 +51,7 @@ class User(AbstractUser):
         # through="Likes",
         # through_fields=("user","game")
     )
+    email = models.CharField(max_length=50)
 
 
 class Comment(models.Model):
@@ -58,3 +59,14 @@ class Comment(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     content = models.TextField(null=False, max_length=500)
     datetime = models.DateTimeField(auto_now=True)
+
+
+class StreamSite(models.Model):
+    name = models.CharField(max_length=20)
+
+class StreamGame(models.Model):
+    game = models.ForeignKey(Game,on_delete=models.CASCADE)
+    stream = models.ForeignKey(StreamSite, on_delete=models.CASCADE)
+    viewers_num = models.IntegerField(default=0)
+
+
