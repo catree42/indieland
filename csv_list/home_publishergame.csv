@@ -1,4 +1,4 @@
-id,gid,pid,reviews_num,review,price,review_score
+id,game_id,publisher_id,reviews_num,review,price,review_score
 0,0,0,19004,Positive,20500.0,99
 1,1,0,821784,Positive,4500.0,98
 2,2,0,757880,Positive,16000.0,98
