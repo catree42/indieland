@@ -1,75 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
   <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
-  </head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      /* 배경색 및 텍스트 색상 */
+      body {
+        background-color: #f8f9fa; /* 연한 회색 배경 */
+        color: #343a40; /* 어두운 텍스트 색상 */
+      }
 
+      /* 네비게이션 바 스타일 */
+      .navbar {
+        margin-bottom: 20px; /* 네비게이션 바 아래 여백 */
+      }
+
+      /* 폼 스타일 */
+      .container {
+        background-color: #ffffff; /* 흰색 배경 */
+        border: 1px solid #dee2e6; /* 연한 회색 테두리 */
+        border-radius: 5px; /* 테두리 둥글게 */
+        padding: 20px; /* 안쪽 여백 */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+      }
+
+      /* 버튼 스타일 */
+      .btn-primary {
+        background-color: #007bff; /* 파란색 배경 */
+        border-color: #007bff; /* 파란색 테두리 */
+      }
+
+      /* 버튼 호버 효과 */
+      .btn-primary:hover {
+        background-color: #0056b3; /* 어두운 파란색 */
+        border-color: #0056b3; /* 어두운 파란색 테두리 */
+      }
+    </style>
+  </head>
   <body>
-    <!-- Navigation-->
+    <!-- 네비게이션 바 -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="{% url 'home' %}">Your Game Site</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-          </ul>
-        </div>
+      <a class="navbar-brand" href="{% url 'home' %}">게임 플랫폼</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">홈</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">로그인</a>
+          </li>
+        </ul>
       </div>
     </nav>
 
-    <div class="container" style="margin-top: 50px;">
-      <h2>Sign Up</h2>
-
-      <!-- Display validation errors -->
-      {% if errors %}
-        <div class="alert alert-danger">
-          <ul>
-            {% for field, error_messages in errors.items %}
-              <li>{{ field }}:
-                {{ error_messages.0 }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-
-      <form action="{% url 'signup' %}" method="POST">
+    <div class="container mt-5">
+      <h2>회원가입</h2>
+      <form action="{% url 'signup' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" class="form-control" required="required">
+          <label for="username">사용자 이름</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            required
+          />
         </div>
         <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" class="form-control" required="required">
+          <label for="email">이메일</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+          />
         </div>
         <div class="form-group">
-          <label for="nickname">Nickname:</label>
-          <input type="nickname" id="nickname" name="nickname" class="form-control" required="required">
+          <label for="nickname">닉네임</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nickname"
+            name="nickname"
+            required
+          />
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
-          <!-- Changed from password1 to password -->
-          <input type="password" id="password" name="password" class="form-control" required="required">
+          <label for="password">비밀번호</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
         </div>
         <div class="form-group">
-          <label for="password2">Confirm Password:</label>
-          <input type="password" id="password2" name="password2" class="form-control" required="required">
+          <label for="password_confirm">비밀번호 확인</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password_confirm"
+            name="password_confirm"
+            required
+          />
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Sign Up</button>
+        <button type="submit" class="btn btn-primary">회원가입</button>
       </form>
     </div>
-  </body>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

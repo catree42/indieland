@@ -17,7 +17,7 @@ class Game(models.Model):
     youtube = models.URLField(max_length=200, null = True)
     tags = models.ManyToManyField(Tag, related_name="tag_game")
     image_src = models.URLField(null=True)
-
+    
 
 class PublisherGame(models.Model):
     publisher = models.ForeignKey(Publisher,
@@ -71,8 +71,8 @@ class User(AbstractUser):
         return self.username
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_user")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="comment_game") 
     content = models.TextField(null=False, max_length=500)
     datetime = models.DateTimeField(auto_now=True)
 

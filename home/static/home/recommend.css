@@ -51,6 +51,7 @@
   --bs-light-rgb: 248, 249, 250;
   --bs-dark-rgb: 33, 37, 41;
   --bs-white-rgb: 255, 255, 255;
+  --mycolor-1: 8, 152, 127;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
@@ -10824,3 +10825,81 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.bg-1{
+  --bs-bg-opacity: 1;
+  background-color: rgb(23,41,23) !important;
+}
+
+.bg-2{
+  --bs-bg-opacity: 1;
+  background-color: rgb(123,32,41) !important;
+}
+
+.bg-3{
+  --bs-bg-opacity: 1;
+  background-color: rgb(13,110,253) !important;
+}
+
+.bg-4{
+  --bs-bg-opacity: 1;
+  background-color: rgb(103,118,125) !important;
+}
+
+.bg-5{
+  --bs-bg-opacity: 1;
+  background-color: rgb(21,231,23) !important;
+}
+
+.bg-6{
+  --bs-bg-opacity: 1;
+  background-color: rgb(201,123,123) !important;
+}
+
+.bg-7{
+  --bs-bg-opacity: 1;
+  background-color: rgb(23,232,231) !important;
+}
+
+.bg-8{
+  --bs-bg-opacity: 1;
+  background-color: rgb(123,41,123) !important;
+}
+
+.bg-9{
+  --bs-bg-opacity: 1;
+  background-color: rgb(23,141,223) !important;
+}
+
+.bg-10{
+  --bs-bg-opacity: 1;
+  background-color: rgb(123,241,123) !important;
+}
+
+.bg-11{
+  --bs-bg-opacity: 1;
+  background-color: rgb(223,241,123) !important;
+}
+
+.bg-12{
+  --bs-bg-opacity: 1;
+  background-color: rgb(223,141,223) !important;
+}
+
+.bg-13{
+  --bs-bg-opacity: 1;
+  background-color: rgb(63,121,63) !important;
+}
+
+.bg-14{
+  --bs-bg-opacity: 1;
+  background-color: rgb(213,1,183) !important;
+}
+
+.bg-15{
+  --bs-bg-opacity: 1;
+  background-color: rgb(123,51,173) !important;
+}
+
+
+
