@@ -16,6 +16,7 @@ class Game(models.Model):
     release_date = models.DateField()
     youtube = models.URLField(max_length=200, null = True)
     tags = models.ManyToManyField(Tag, related_name="tag_game")
+    image_src = models.URLField(null=True)
 
 
 class PublisherGame(models.Model):
