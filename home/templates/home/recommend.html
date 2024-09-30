@@ -41,36 +41,24 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand" href="#">게임 스토어</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mx-auto nav-center">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">홈</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'recommend' %}">추천</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">로그인</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'signup' %}">회원 가입</a>
-          </li>
-        </ul>
+          <ul class="navbar-nav mx-auto nav-center">
+              <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">홈</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'recommend' %}">추천</a></li>
+          </ul>
+          <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="#" id="logoutButton">로그아웃</a></li>
+            {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">회원 가입</a></li>
+            {% endif %}
+          </ul>
       </div>
-    </nav>
+  </nav>
 
     <!-- Header-->
     <header class="bg-dark py-5">
@@ -343,5 +331,6 @@
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
   </body>
 </html>

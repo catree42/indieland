@@ -26,6 +26,11 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserLoginSerializer
 from rest_framework.decorators import api_view
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
+
+
+
 
 @api_view(["GET", "POST"])
 def recommend(request):
@@ -79,6 +84,7 @@ class UserLoginView(generics.GenericAPIView):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
+
     
 class UserSignupView(generics.GenericAPIView):
     serializer_class = UserSignupSerializer
