@@ -66,7 +66,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["email", "nickname"]
 
     class Meta:
-        db_table = "auth_user"  # Use the same table name as the default User model
+        db_table = "home_user"  # Use the same table name as the default User model
 
     def __str__(self):
         return self.username
