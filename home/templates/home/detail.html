@@ -4,21 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamedetail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css"> <!-- 별도의 CSS 파일 링크 -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* 배경 색상 */
+        }
+        .navbar {
+            background-color: #343a40; /* 네비게이션 바 색상 */
+        }
+        .navbar-brand,
+        .nav-link {
+            color: #ffffff !important; /* 글자 색상 */
+            font-size: 18px; /* 글자 크기 조정 */
+        }
+        .navbar-brand:hover,
+        .nav-link:hover {
+            color: #ffc107 !important; /* 호버 색상 */
+        }
+        .card {
+            background-color: #ffffff; /* 카드 배경 색상 */
+            border: 1px solid #dee2e6; /* 카드 테두리 색상 */
+            border-radius: 8px; /* 둥근 모서리 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            transition: transform 0.2s; /* 카드 애니메이션 */
+        }
+        .card:hover {
+            transform: scale(1.02); /* 카드 호버 시 확대 효과 */
+        }
+        .card-body {
+            padding: 20px; /* 패딩 추가 */
+        }
+        .card-img-top {
+            height: 400px; /* 이미지 높이 조정 */
+            width: 100%; /* 이미지 너비를 컨테이너에 맞춤 */
+            object-fit: cover; /* 비율 유지하며 자름 */
+            border-radius: 8px 8px 0 0; /* 상단 모서리 둥글게 */
+        }
+        .more-btn {
+            background-color: white; /* 버튼 배경 색상 */
+            color: #343a40; /* 글자 색상 */
+            border: 1px solid #dee2e6; /* 테두리 색상 */
+            padding: 5px 10px; /* 버튼 크기 조정 */
+            cursor: pointer;
+            font-size: 14px; /* 글자 크기 조정 */
+            margin-top: 5px;
+            border-radius: 5px; /* 둥근 모서리 추가 */
+            transition: background-color 0.3s; /* 호버 효과 부드럽게 */
+        }
+        .more-btn:hover {
+            background-color: #e0e0e0; /* 호버 시 배경 색상 */
+        }
+        .comment-form {
+            max-width: 500px; /* 최대 너비 설정 */
+            margin-bottom: 20px; /* 아래 여백 추가 */
+        }
+        textarea {
+            width: 100%; /* 너비를 부모 요소에 맞춤 */
+            height: 100px; /* 고정 높이 설정 */
+            resize: none; /* 크기 조절 비활성화 */
+            border: 1px solid #dee2e6; /* 테두리 설정 */
+            border-radius: 4px; /* 둥근 모서리 추가 */
+            padding: 10px; /* 패딩 추가 */
+            background}
+        .review-content {
+                background-color: #f8f9fa; /* 리뷰 배경 색상 */
+                border: 1px solid #dee2e6; /* 테두리 색상 */
+                border-radius: 8px; /* 둥근 모서리 */
+                padding: 15px; /* 패딩 추가 */
+                margin-bottom: 15px; /* 아래 여백 추가 */
+                transition: box-shadow 0.2s; /* 그림자 효과 */
+            }
+            
+        .review-content:hover {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 효과 */
+            }
+            
+        .review-text {
+                font-size: 14px; /* 글자 크기 조정 */
+                color: #495057; /* 글자 색상 */
+            }
+            
+        .more-link {
+                color: #007bff; /* 링크 색상 */
+                text-decoration: underline; /* 밑줄 추가 */
+                cursor: pointer; /* 커서 모양 변경 */
+            }
+            
+        .more-link:hover {
+                color: #0056b3; /* 호버 시 링크 색상 */
+            }
+            
+        .comment-list {
+                list-style-type: none; /* 기본 리스트 스타일 제거 */
+                padding: 0; /* 패딩 제거 */
+            }
+            
+        .comment-list li {
+                background-color: #f8f9fa; /* 댓글 배경 색상 */
+                border: 1px solid #dee2e6; /* 테두리 색상 */
+                border-radius: 8px; /* 둥근 모서리 */
+                padding: 10px; /* 패딩 추가 */
+                margin-bottom: 10px; /* 아래 여백 추가 */
+            }
+            
+        .comment-list strong {
+                color: #343a40; /* 사용자 이름 색상 */
+            }
+            
+        .comment-list .comment-meta {
+                font-size: 12px; /* 메타 정보 글자 크기 조정 */
+                color: #868e96; /* 회색 색상 */
+            }
+            
+    </style>   
 </head>
-{% block content %}
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                <h1>{{gametxt.name}}  게임소개 </h1>
-                <p><strong>출시일  : </strong>{{gametxt.release_date}}</p>
-                <p><strong>가격    : </strong>₩{{pbtxt.price}}</p>
-                <p><strong>리뷰 수 : </strong>{{pbtxt.reviews_num}}</p>
-                <p><strong>리뷰    : </strong>{{pbtxt.review}}(평점{{pbtxt.review_score}})</p> 
-                <p><strong>플랫폼  : </strong> {% if pbtxt.publisher_id == 1%}STEAM{% else %}STOVE</p>{% endif %}
-                <p><strong>유튜브  : </strong> <a href='https://www.youtube.com/results?search_query={{gametxt.name}}' target='_blank'>{{gametxt.name}} 영상 보러가기</a></p>
-                <p><strong><a href='{{href}}' target='_blank'>구매하러가기</a></strong></p>
-                <img src="">
+<header class="text-center bg-dark text-white py-3">
+    <h1>INDIE LAND</h1>
+</header>
+<nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">홈</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'recommend' %}">추천</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="#" id="logoutButton">로그아웃</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">로그인</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">회원 가입</a></li>
+        </ul>
+    </div>
+</nav>
+<body>
+    <div class="container mt-5">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="text-center">
+                    <header class="bg-dark text-white py-3">
+                        <h1>{{ gametxt.name }}</h1>
+                    </header>
+
+                    <div class="card2">
+                        <img src="{{ gametxt.image_src }}" class="card-img-top" alt="{{ gametxt.name }}">
+                    </div>
+                    <p><strong>플랫폼: </strong> {% if pbtxt.publisher_id == 1 %}STEAM{% else %}STOVE{% endif %}</p>
+                    <p><strong>가격: </strong>₩{{ pbtxt.price }}</p>
+                    <p><strong>출시일: </strong>{{ gametxt.release_date }}</p>
+                    <p><strong>리뷰 수: </strong>{{ pbtxt.reviews_num }}</p>
+                    <p><strong>리뷰: </strong>{{ pbtxt.review }} (평점 {{ pbtxt.review_score }})</p>
+                    <p><strong>유튜브: </strong> <a href='https://www.youtube.com/results?search_query={{ gametxt.name }}' target='_blank'>영상 보러가기</a></p>
+                    <p><strong><a href='{{ href }}' target='_blank'>구매하러가기</a></strong></p>
+                </div>
             </div>
         </div>
         
@@ -26,14 +165,291 @@
 
         <h2>게임 리뷰</h2>
         {% if gamecomments %}
-            <ul>
+            <ul class="list-unstyled">
                 {% for gamecomment in gamecomments %}
-                    <li>
-                        {{ gamecomment.content}}
-                    </li>
+                <li>
+                    <div class="review-content">
+                        <span class="review-text">
+                            {{ gamecomment.content|truncatechars:100 }} <!-- 100자까지만 표시 -->
+                        </span>
+                        {% if gamecomment.content|length > 100 %}
+                            <span class="more-text" style="display:none;">{{ gamecomment.content }}</span>
+                            <a href="#" class="more-link">자세히 보기</a> <!-- 글로 변경 -->
+                        {% else %}
+                            <span class="more-text" style="display:none;">{{ gamecomment.content }}</span>
+                        {% endif %}
+                    </div>
+                </li>
                 {% endfor %}
             </ul>
         {% endif %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var moreLinks = document.querySelectorAll('.more-link');
+                
+                moreLinks.forEach(function (link) {
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault(); // 링크 기본 동작 방지
+                        var reviewText = this.previousElementSibling;  // 100자까지만 표시된 부분
+                        var moreText = this.previousElementSibling.previousElementSibling;  // 전체 리뷰
+                        
+                        if (moreText.style.display === "none") {
+                            moreText.style.display = "inline";  // 전체 리뷰 표시
+                            reviewText.style.display = "none";  // 100자 부분 숨김
+                            this.textContent = "자세히 보기";  // 링크 텍스트 변경
+                        } else {
+                            moreText.style.display = "none";  // 전체 리뷰 숨김
+                            reviewText.style.display = "inline";  // 100자 부분 표시
+                            this.textContent = "접기";  // 링크 텍스트 변경
+                        }
+                    });
+                });
+            });
+        </script>
+        <hr>
+        
+        <h3>댓글</h3>
+        {% if comments %}
+            <ul class="comment-list">
+                {% for comment in comments %}
+                    <li>
+                        <strong>{{ comment.user }}</strong>
+                        <span class="comment-meta">({{ comment.created_at|date:"Y-m-d H:i" }})</span>:<br>
+                        {{ comment.content }}
+                        {% if user.is_authenticated and user == comment.user %}
+                        <form action="{% url 'delete_comment' comment.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                        </form>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>댓글이 없습니다.</p>
+        {% endif %}
+        
+
+        <hr>
+        <p>좋아요 수: {{ likes_count }}</p>
+
+        {% if user.is_authenticated %}
+            <form action="{% url 'like_game' game.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                    {% if user_liked %}
+                        좋아요 취소
+                    {% else %}
+                        좋아요
+                    {% endif %}
+                </button>
+            </form>
+        {% endif %}
+        
+        <hr>
+
+        <!-- 댓글 작성 폼 (로그인한 사용자만) -->
+        <h4>댓글 남기기</h4>
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="comment-form">
+                    <textarea name="content" placeholder="댓글을 작성하세요..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">댓글 작성</button>
+            </form>
+        {% else %}
+            <p>댓글을 작성하려면 <a href="{% url 'login' %}">로그인</a>하세요.</p>
+        {% endif %}
+        
+        <hr>
+    </div>
+</body>
+</html>
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamedetail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+      body {
+          background-color: #f8f9fa; /* 배경 색상 */
+      }
+      .navbar {
+          background-color: #343a40; /* 네비게이션 바 색상 (어두운 회색) */
+      }
+      .navbar-brand,
+      .nav-link {
+          color: #ffffff !important; /* 글자 색상 */
+          font-size: 18px; /* 글자 크기 조정 */
+      }
+      .navbar-brand:hover,
+      .nav-link:hover {
+          color: #ffc107 !important; /* 호버 색상 (노란색) */
+      }
+      .card {
+        background-color: #ffffff; /* 카드 배경 색상 */
+        border: 1px solid #dee2e6; /* 카드 테두리 색상 */
+        transition: transform 0.2s; /* 카드 애니메이션 */
+        height: 165px; /* 카드 높이를 고정 */
+        display: flex;
+        flex-direction: column; /* 카드 내용 세로 방향 정렬 */
+    }
+
+       .card-body {
+        flex-grow: 1; /* 카드 내용이 공간을 차지하도록 설정 */
+        display: flex;
+        flex-direction: column; /* 카드 내용 세로 방향 정렬 */
+        justify-content: space-between; /* 내용 간의 간격 조정 */
+        padding: 15px; /* 패딩 추가 */
+    }
+       .card-img-top {
+        height: 300px; /* 이미지 높이를 고정 */
+        width: 100%;   /* 이미지 너비를 컨테이너에 맞춤 */
+        object-fit: cover; /* 비율 유지하며 자름 */
+    }
+    .card2 {
+        background-color: #ffffff; /* 카드 배경 색상 */
+        border: 1px solid #dee2e6; /* 카드 테두리 색상 */
+        transition: transform 0.2s; /* 카드 애니메이션 */
+        display: flex;
+        flex-direction: column; /* 카드 내용 세로 방향 정렬 */
+        max-width: 500px; /* 카드 최대 너비 설정 */
+        max-height: 300px; /* 카드 최대 높이 설정 */
+        overflow: hidden; /* 카드 내용이 넘칠 경우 숨김 */
+    }
+    
+    .card-img-top2 {
+        max-width: 100%; /* 이미지 너비를 컨테이너에 맞춤 */
+        max-height: 300px; /* 이미지 최대 높이 설정 */
+        width: auto; /* 너비 자동 조정 */
+        height: auto; /* 높이 자동 조정 */
+        object-fit: contain; /* 비율 유지하며 이미지 표시 */
+    }
+       .review-content {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+       .more-btn {
+        background-color: #white; /* 노란색 버튼 */
+        color: #343a40;
+        border: none;
+        padding: 3px 7px;  /* 버튼 크기 조정 */
+        cursor: pointer;
+        font-size: 12px;   /* 글자 크기 축소 */
+        margin-top: 5px;
+        border-radius: 3px; /* 둥근 모서리 추가 */
+    }
+    .more-btn:hover {
+        background-color: #e0e0e0;
+    }
+    .comment-form {
+        max-width: 500px; /* 최대 너비 설정 */
+        margin-bottom: 10px; /* 아래 여백 추가 */
+    }
+    
+    textarea {
+        width: 100%; /* 너비를 부모 요소에 맞춤 */
+        height: 100px; /* 고정 높이 설정 */
+        resize: none; /* 크기 조절 비활성화 */
+        border: 1px solid #dee2e6; /* 테두리 설정 */
+        border-radius: 4px; /* 둥근 모서리 추가 */
+        padding: 10px; /* 패딩 추가 */
+        background-color: #f8f9fa; /* 배경 색상 설정 */
+    }
+
+    .review-text {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .more-text {
+        display: none;
+    }
+      </style>
+</head>
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <header class="text-center bg-dark text-white py-3">
+                    <h1>{{gametxt.name}} </h1>
+                </header>
+                <nav class="navbar navbar-expand-lg">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto nav-center">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">홈</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'recommend' %}">추천</a></li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">로그인</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="card2">
+                    <img src="{{ gametxt.image_src }}" class="card-img-top2" alt="{{ gametxt.name }}">
+                </div>
+                <p><strong>플랫폼  : </strong> {% if pbtxt.publisher_id == 1%}STEAM{% else %}STOVE</p>{% endif %}
+                <p><strong>가격    : </strong>₩{{pbtxt.price}}</p>
+                <p><strong>출시일  : </strong>{{gametxt.release_date}}</p>
+                <p><strong>리뷰 수 : </strong>{{pbtxt.reviews_num}}</p>
+                <p><strong>리뷰    : </strong>{{pbtxt.review}}(평점{{pbtxt.review_score}})</p> 
+                <p><strong>유튜브  : </strong> <a href='https://www.youtube.com/results?search_query={{gametxt.name}}' target='_blank'>{{gametxt.name}} 영상 보러가기</a></p>
+                <p><strong><a href='{{href}}' target='_blank'>구매하러가기</a></strong></p>
+                <img src="">
+            </div>
+        </div>
+        <hr>
+
+
+        <h2>게임 리뷰</h2>
+        {% if gamecomments %}
+            <ul>
+                {% for gamecomment in gamecomments %}
+                <li>
+                    <div class="review-content">
+                        <span class="review-text">
+                            {{ gamecomment.content|truncatechars:100 }} <!-- 100자까지만 표시 -->
+                        </span>
+                        <span class="more-text" style="display:none;">{{ gamecomment.content }}</span>
+                        <button class="more-btn">자세히 보기</button>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var moreBtns = document.querySelectorAll('.more-btn');
+                
+                moreBtns.forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var reviewText = this.previousElementSibling;  // 100자까지만 표시된 부분
+                        var moreText = this.previousElementSibling.previousElementSibling;  // 전체 리뷰
+                        
+                        if (moreText.style.display === "none") {
+                            moreText.style.display = "inline";  // 전체 리뷰 표시
+                            reviewText.style.display = "none";  // 100자 부분 숨김
+                            this.textContent = "자세히 보기";  // 버튼 텍스트 변경
+                        } else {
+                            moreText.style.display = "none";  // 전체 리뷰 숨김
+                            reviewText.style.display = "inline";  // 100자 부분 표시
+                            this.textContent = "접기";  // 버튼 텍스트 변경
+                        }
+                    });
+                });
+            });
+        </script>
         <hr>
 
         <!-- 댓글 표시 -->
@@ -73,13 +489,16 @@
             </form>
         {% endif %}
         <hr>
+    
 
         <!-- 댓글 작성 폼 (로그인한 사용자만) -->
         <h4>댓글 남기기</h4>
         {% if user.is_authenticated %}
             <form method="POST">
                 {% csrf_token %}
-                {{ comment_form.as_p }}
+                <div class="comment-form">
+                    <textarea name="content" placeholder="댓글을 작성하세요..."></textarea>
+                </div>
                 <button type="submit">댓글 작성</button>
             </form>
         {% else %}
@@ -90,4 +509,4 @@
     </div>
 </div>
 {% endblock %}
-</html>
+</html> {% endcomment %}

@@ -19,12 +19,13 @@
 # ]
 
 from django.urls import path
-from .views import UserLoginView, UserSignupView, home_view, detail, recommend, likegame, delete_comment
+from .views import *
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('', home_view, name='home'),
     path("login/", UserLoginView.as_view(), name="login"),
+     path('api/logout/', LogoutView.as_view(), name='logout'),
     path("signup/", UserSignupView.as_view(), name="signup"),
     
     # JWT 토큰 관련 URL

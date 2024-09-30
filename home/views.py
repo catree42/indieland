@@ -85,6 +85,20 @@ class UserLoginView(generics.GenericAPIView):
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # 여기서 JWT를 블랙리스트에 추가하거나 세션을 종료하는 로직을 추가할 수 있습니다.
+        
+        # 예: 토큰 블랙리스트 처리 (필요한 경우)
+        # token = request.META.get('HTTP_AUTHORIZATION').split()[1]
+        # 블랙리스트 처리 로직 (예: Redis, DB 등)
+
+        return Response({"message": "로그아웃 성공!"}, status=status.HTTP_200_OK)
     
 class UserSignupView(generics.GenericAPIView):
     serializer_class = UserSignupSerializer
