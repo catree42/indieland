@@ -1,11 +1,93 @@
-{% block  %}
-    <h1>상세 페이지</h1>
-    <hr>
-    <p>글 제목 : 게임 이름</p>
-    <p>글 내용 : {{game.tags}}</p>
-    <p>글 내용 : {{game.price}}</p> 
-    <p>게임사 / 게임 최소사양,권장사양 / 스팀의 상점 페이지 / 다른 사람들의 리뷰 / 좋아요 비율 / 유사한 게임 / 게임 스토리 / 진행 방식에 대한 간략한 설명 / 게임의 분위기</p>
-    <hr>
-{% endblock  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamedetail</title>
+</head>
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <h1>{{gametxt.name}}  게임소개 </h1>
+                <p><strong>출시일  : </strong>{{gametxt.release_date}}</p>
+                <p><strong>가격    : </strong>₩{{pbtxt.price}}</p>
+                <p><strong>리뷰 수 : </strong>{{pbtxt.reviews_num}}</p>
+                <p><strong>리뷰    : </strong>{{pbtxt.review}}(평점{{pbtxt.review_score}})</p> 
+                <p><strong>플랫폼  : </strong> {% if pbtxt.publisher_id == 1%}STEAM{% else %}STOVE</p>{% endif %}
+                <p><strong>유튜브  : </strong> <a href='https://www.youtube.com/results?search_query={{gametxt.name}}' target='_blank'>{{gametxt.name}} 영상 보러가기</a></p>
+                <p><strong><a href='{{href}}' target='_blank'>구매하러가기</a></strong></p>
+                <img src="">
+            </div>
+        </div>
+        
+        <hr>
 
+        <h2>게임 리뷰</h2>
+        {% if gamecomments %}
+            <ul>
+                {% for gamecomment in gamecomments %}
+                    <li>
+                        {{ gamecomment.content}}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <hr>
 
+        <!-- 댓글 표시 -->
+        <h3>댓글</h3>
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <strong>{{ comment.user }}</strong> ({{ comment.created_at|date:"Y-m-d H:i" }}):<br>
+                        {{ comment.content }}
+                        {% if user.is_authenticated and user == comment.user %}
+                        <form action="{% url 'delete_comment' comment.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">삭제</button>
+                        </form>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>댓글이 없습니다.</p>
+        {% endif %}
+
+        <hr>
+        <p>좋아요 수: {{ likes_count }}</p>
+
+        {% if user.is_authenticated %}
+            <form action="{% url 'like_game' game.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">
+                    {% if user_liked %}
+                        좋아요 취소
+                    {% else %}
+                        좋아요
+                    {% endif %}
+                </button>
+            </form>
+        {% endif %}
+        <hr>
+
+        <!-- 댓글 작성 폼 (로그인한 사용자만) -->
+        <h4>댓글 남기기</h4>
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">댓글 작성</button>
+            </form>
+        {% else %}
+            <p>댓글을 작성하려면 <a href="{% url 'login' %}">로그인</a>하세요.</p>
+        {% endif %}
+
+        <hr>
+    </div>
+</div>
+{% endblock %}
+</html>

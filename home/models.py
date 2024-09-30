@@ -14,9 +14,10 @@ class Publisher(models.Model):
 class Game(models.Model):
     name = models.CharField(max_length=100)
     release_date = models.DateField()
-    youtube = models.URLField(max_length=200)
+    youtube = models.URLField(max_length=200, null = True)
     tags = models.ManyToManyField(Tag, related_name="tag_game")
-
+    image_src = models.URLField(null=True)
+    
 
 class PublisherGame(models.Model):
     publisher = models.ForeignKey(Publisher,
@@ -31,7 +32,7 @@ class PublisherGame(models.Model):
     reviews_num = models.IntegerField(default=0)
     review = models.CharField(max_length=20)
     review_score = models.DecimalField(null=True,
-                                       max_digits=3,
+                                       max_digits=4,
                                        decimal_places=1)
 
 
@@ -39,15 +40,13 @@ class GameComment(models.Model):
     publisher_game = models.ForeignKey(PublisherGame,
                                        on_delete=models.CASCADE,
                                        related_name="pg_comment")
-    datetime = models.DateTimeField(auto_now=True)
     content = models.TextField(max_length=400)
 
 
 class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(
-        max_length=128, default=make_password(
-            "default_password"))  # Explicitly included, matching AbstractUser
+        max_length=128)  # Explicitly included, matching AbstractUser
     email = models.EmailField(max_length=254, unique=True)
     nickname = models.CharField(max_length=30)
     played = models.ManyToManyField(
@@ -71,10 +70,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_user")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="comment_game") 
     content = models.TextField(null=False, max_length=500)
     datetime = models.DateTimeField(auto_now=True)
 
