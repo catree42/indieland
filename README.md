@@ -8,5 +8,5 @@
 **model.py와 MySQL workbench를 참고하세요** 
 
  
-![image](https://github.com/user-attachments/assets/f3b836e3-335d-49ff-9c8b-c594e75afc3f)
+![image](https://github.com/user-attachments/assets/e3198d58-d404-4d3f-891d-5795326b8101)
 
